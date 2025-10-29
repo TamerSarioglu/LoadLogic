@@ -37,33 +37,55 @@
     - Add proper JPA annotations and constraints
     - _Requirements: 3.2, 3.3, 3.4, 3.5, 7.3, 9.2_
 
-- [ ] 3. Create DTOs for API requests and responses
-  - [ ] 3.1 Create authentication DTOs
+- [x] 3. Create DTOs for API requests and responses
+
+
+
+
+
+  - [x] 3.1 Create authentication DTOs
+
+
     - Implement RegisterRequest, LoginRequest, and AuthResponse DTOs
     - Add validation annotations for required fields
     - _Requirements: 1.3, 2.1, 2.2_
 
-  - [ ] 3.2 Create job management DTOs
+  - [x] 3.2 Create job management DTOs
+
+
     - Implement CreateJobRequest, JobResponse, and UpdateJobStatusRequest DTOs
     - Add validation for material types and equipment from predefined lists
     - _Requirements: 3.2, 3.3, 7.1, 7.2_
 
-  - [ ] 3.3 Create reference data DTOs
+  - [x] 3.3 Create reference data DTOs
+
+
     - Implement MaterialResponse, EquipmentResponse, and AvailableUserResponse DTOs
     - _Requirements: 8.1, 8.2, 8.4_
 
-- [ ] 4. Implement JWT security infrastructure
-  - [ ] 4.1 Create JWT service for token operations
+- [x] 4. Implement JWT security infrastructure
+
+
+
+
+
+  - [x] 4.1 Create JWT service for token operations
+
+
     - Implement JwtService with token generation, validation, and extraction methods
     - Configure JWT secret and expiration settings
     - _Requirements: 2.3, 2.5_
 
-  - [ ] 4.2 Create UserDetails implementation and service
+  - [x] 4.2 Create UserDetails implementation and service
+
+
     - Implement CustomUserDetails and CustomUserDetailsService
     - Integrate with Spring Security authentication
     - _Requirements: 2.1, 2.4_
 
-  - [ ] 4.3 Configure Spring Security with JWT filter
+  - [x] 4.3 Configure Spring Security with JWT filter
+
+
     - Create JwtAuthenticationFilter for request processing
     - Configure SecurityConfig with role-based endpoint protection
     - _Requirements: 2.1, 6.3, 7.4_
