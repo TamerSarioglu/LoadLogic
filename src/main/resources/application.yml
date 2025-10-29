@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: LoadLogic
+  
+  # Database Configuration
+  datasource:
+    url: jdbc:h2:mem:loadlogic
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  
+  # H2 Console (for development)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:loadlogic-secret-key-for-development-only}
+  expiration: 86400000 # 24 hours in milliseconds
+  issuer: loadlogic-local
+
+# Reference Data Configuration
+app:
+  materials:
+    - Sand
+    - Gravel
+    - Concrete
+    - Bricks
+    - Steel
+    - Wood
+  equipment:
+    - Truck-01
+    - Truck-02
+    - Excavator-A
+    - Loader-B
+    - Crane-X
+
+# Logging Configuration
+logging:
+  level:
+    com.tamersarioglu.loadlogic: DEBUG
+    org.springframework.security: DEBUG
