@@ -90,13 +90,22 @@
     - Configure SecurityConfig with role-based endpoint protection
     - _Requirements: 2.1, 6.3, 7.4_
 
-- [ ] 5. Implement repository layer
-  - [ ] 5.1 Create UserRepository with custom queries
+- [x] 5. Implement repository layer
+
+
+
+
+
+  - [x] 5.1 Create UserRepository with custom queries
+
+
     - Implement UserRepository with findByUsername and role-based queries
     - Add username existence check method
     - _Requirements: 1.2, 8.4_
 
-  - [ ] 5.2 Create JobRepository with assignment queries
+  - [x] 5.2 Create JobRepository with assignment queries
+
+
     - Implement JobRepository with assigned job queries and ordering
     - Add methods for finding jobs by driver/crew assignment
     - _Requirements: 4.2, 5.2, 5.3_

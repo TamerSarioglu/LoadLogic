@@ -1,6 +1,6 @@
-package com.tamersarioglu.LoadLogic.security
+package com.tamersarioglu.loadlogic.security
 
-import com.tamersarioglu.LoadLogic.repository.UserRepository
+import com.tamersarioglu.loadlogic.repository.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException

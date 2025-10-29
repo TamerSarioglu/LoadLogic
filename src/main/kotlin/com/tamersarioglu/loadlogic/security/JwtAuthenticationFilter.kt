@@ -1,6 +1,6 @@
-package com.tamersarioglu.LoadLogic.security
+package com.tamersarioglu.loadlogic.security
 
-import com.tamersarioglu.LoadLogic.service.JwtService
+import com.tamersarioglu.loadlogic.service.JwtService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

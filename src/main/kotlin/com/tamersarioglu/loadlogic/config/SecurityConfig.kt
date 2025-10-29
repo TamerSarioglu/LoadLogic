@@ -1,6 +1,6 @@
-package com.tamersarioglu.LoadLogic.config
+package com.tamersarioglu.loadlogic.config
 
-import com.tamersarioglu.LoadLogic.security.JwtAuthenticationFilter
+import com.tamersarioglu.loadlogic.security.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod

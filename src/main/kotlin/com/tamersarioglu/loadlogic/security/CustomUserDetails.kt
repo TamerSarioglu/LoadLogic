@@ -1,4 +1,4 @@
-package com.tamersarioglu.LoadLogic.security
+package com.tamersarioglu.loadlogic.security
 
 import com.tamersarioglu.loadlogic.entity.User
 import org.springframework.security.core.GrantedAuthority

@@ -1,4 +1,4 @@
-package com.tamersarioglu.LoadLogic.repository
+package com.tamersarioglu.loadlogic.repository
 
 import com.tamersarioglu.loadlogic.entity.Role
 import com.tamersarioglu.loadlogic.entity.User
