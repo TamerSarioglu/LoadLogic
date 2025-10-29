@@ -1,17 +1,15 @@
 package com.tamersarioglu.loadlogic.service
 
+import com.tamersarioglu.loadlogic.config.ReferenceDataConfig
 import com.tamersarioglu.loadlogic.dto.CreateJobRequest
 import com.tamersarioglu.loadlogic.dto.JobResponse
 import com.tamersarioglu.loadlogic.dto.UpdateJobStatusRequest
 import com.tamersarioglu.loadlogic.entity.Job
 import com.tamersarioglu.loadlogic.entity.JobStatus
 import com.tamersarioglu.loadlogic.entity.Role
-import com.tamersarioglu.loadlogic.exception.InvalidJobAssignmentException
-import com.tamersarioglu.loadlogic.exception.InvalidReferenceDataException
 import com.tamersarioglu.loadlogic.exception.JobNotFoundException
 import com.tamersarioglu.loadlogic.exception.UnauthorizedAccessException
 import com.tamersarioglu.loadlogic.repository.JobRepository
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -25,8 +23,7 @@ class JobService(
     private val jobRepository: JobRepository,
     private val userService: UserService,
     private val authorizationService: AuthorizationService,
-    @param:Value("\${app.materials}") private val validMaterials: List<String>,
-    @param:Value("\${app.equipment}") private val validEquipment: List<String>
+    private val referenceDataConfig: ReferenceDataConfig
 ) {
 
     /**

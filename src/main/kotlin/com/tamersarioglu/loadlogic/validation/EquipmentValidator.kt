@@ -1,8 +1,8 @@
 package com.tamersarioglu.loadlogic.validation
 
+import com.tamersarioglu.loadlogic.config.ReferenceDataConfig
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 /**
@@ -10,15 +10,14 @@ import org.springframework.stereotype.Component
  * Validates equipment against the predefined list from application properties.
  */
 @Component
-class EquipmentValidator : ConstraintValidator<ValidEquipment, String> {
-
-    @Value("\${app.equipment}")
-    private lateinit var validEquipment: List<String>
+class EquipmentValidator(
+    private val referenceDataConfig: ReferenceDataConfig
+) : ConstraintValidator<ValidEquipment, String> {
 
     override fun isValid(value: String?, context: ConstraintValidatorContext?): Boolean {
         if (value == null) {
             return false
         }
-        return validEquipment.contains(value)
+        return referenceDataConfig.equipment.contains(value)
     }
 }

@@ -193,14 +193,22 @@
     - Create authorization checks for job access
     - _Requirements: 3.3, 3.4, 3.5, 6.3, 7.4, 9.4, 9.5_
 
-- [ ] 9. Create application configuration and initialization
-  - [ ] 9.1 Configure application properties and profiles
+- [x] 9. Create application configuration and initialization
+
+
+
+
+  - [x] 9.1 Configure application properties and profiles
+
+
     - Set up database configuration for H2
     - Configure JWT settings and security properties
     - Add reference data configuration for materials and equipment
     - _Requirements: 8.1, 8.2, 9.3_
 
-  - [ ] 9.2 Create data initialization for development
+
+  - [x] 9.2 Create data initialization for development
+
     - Implement CommandLineRunner to create sample users
     - Add sample data for testing different roles
     - _Requirements: 1.5, 9.2_

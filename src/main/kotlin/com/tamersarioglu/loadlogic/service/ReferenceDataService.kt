@@ -1,10 +1,10 @@
 package com.tamersarioglu.loadlogic.service
 
+import com.tamersarioglu.loadlogic.config.ReferenceDataConfig
 import com.tamersarioglu.loadlogic.dto.AvailableUserResponse
 import com.tamersarioglu.loadlogic.dto.EquipmentResponse
 import com.tamersarioglu.loadlogic.dto.MaterialResponse
 import com.tamersarioglu.loadlogic.entity.Role
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -16,8 +16,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class ReferenceDataService(
         private val userService: UserService,
-        @param:Value("\${app.materials}") private val materials: List<String>,
-        @param:Value("\${app.equipment}") private val equipment: List<String>
+        private val referenceDataConfig: ReferenceDataConfig
 ) {
 
     /**
@@ -26,7 +25,7 @@ class ReferenceDataService(
      * @return List of MaterialResponse containing all available materials
      */
     fun getMaterials(): List<MaterialResponse> {
-        return materials.map { MaterialResponse(name = it) }
+        return referenceDataConfig.materials.map { MaterialResponse(name = it) }
     }
 
     /**
@@ -35,7 +34,7 @@ class ReferenceDataService(
      * @return List of EquipmentResponse containing all available equipment
      */
     fun getEquipment(): List<EquipmentResponse> {
-        return equipment.map { EquipmentResponse(name = it) }
+        return referenceDataConfig.equipment.map { EquipmentResponse(name = it) }
     }
 
     /**
@@ -95,7 +94,7 @@ class ReferenceDataService(
      * @return true if material is valid, false otherwise
      */
     fun isValidMaterial(materialName: String): Boolean {
-        return materials.contains(materialName)
+        return referenceDataConfig.materials.contains(materialName)
     }
 
     /**
@@ -105,7 +104,7 @@ class ReferenceDataService(
      * @return true if equipment is valid, false otherwise
      */
     fun isValidEquipment(equipmentName: String): Boolean {
-        return equipment.contains(equipmentName)
+        return referenceDataConfig.equipment.contains(equipmentName)
     }
 
     /**
@@ -114,7 +113,7 @@ class ReferenceDataService(
      * @return List of valid material names
      */
     fun getValidMaterialNames(): List<String> {
-        return materials.toList()
+        return referenceDataConfig.materials.toList()
     }
 
     /**
@@ -123,6 +122,6 @@ class ReferenceDataService(
      * @return List of valid equipment names
      */
     fun getValidEquipmentNames(): List<String> {
-        return equipment.toList()
+        return referenceDataConfig.equipment.toList()
     }
 }

@@ -1,8 +1,8 @@
 package com.tamersarioglu.loadlogic.validation
 
+import com.tamersarioglu.loadlogic.config.ReferenceDataConfig
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 /**
@@ -10,15 +10,14 @@ import org.springframework.stereotype.Component
  * Validates material types against the predefined list from application properties.
  */
 @Component
-class MaterialValidator : ConstraintValidator<ValidMaterial, String> {
-
-    @Value("\${app.materials}")
-    private lateinit var validMaterials: List<String>
+class MaterialValidator(
+    private val referenceDataConfig: ReferenceDataConfig
+) : ConstraintValidator<ValidMaterial, String> {
 
     override fun isValid(value: String?, context: ConstraintValidatorContext?): Boolean {
         if (value == null) {
             return false
         }
-        return validMaterials.contains(value)
+        return referenceDataConfig.materials.contains(value)
     }
 }
