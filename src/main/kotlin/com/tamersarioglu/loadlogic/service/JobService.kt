@@ -6,6 +6,10 @@ import com.tamersarioglu.loadlogic.dto.UpdateJobStatusRequest
 import com.tamersarioglu.loadlogic.entity.Job
 import com.tamersarioglu.loadlogic.entity.JobStatus
 import com.tamersarioglu.loadlogic.entity.Role
+import com.tamersarioglu.loadlogic.exception.InvalidJobAssignmentException
+import com.tamersarioglu.loadlogic.exception.InvalidReferenceDataException
+import com.tamersarioglu.loadlogic.exception.JobNotFoundException
+import com.tamersarioglu.loadlogic.exception.UnauthorizedAccessException
 import com.tamersarioglu.loadlogic.repository.JobRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -20,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional
 class JobService(
     private val jobRepository: JobRepository,
     private val userService: UserService,
+    private val authorizationService: AuthorizationService,
     @param:Value("\${app.materials}") private val validMaterials: List<String>,
     @param:Value("\${app.equipment}") private val validEquipment: List<String>
 ) {
@@ -31,29 +36,8 @@ class JobService(
      * @param createJobRequest The job creation request
      * @param createdByChief The username of the chief creating the job
      * @return JobResponse containing the created job details
-     * @throws IllegalArgumentException if validation fails
      */
     fun createJob(createJobRequest: CreateJobRequest, createdByChief: String): JobResponse {
-        // Validate material type
-        if (!validMaterials.contains(createJobRequest.materialType)) {
-            throw IllegalArgumentException("Invalid material type: ${createJobRequest.materialType}. Valid materials: $validMaterials")
-        }
-
-        // Validate equipment
-        if (!validEquipment.contains(createJobRequest.assignedEquipment)) {
-            throw IllegalArgumentException("Invalid equipment: ${createJobRequest.assignedEquipment}. Valid equipment: $validEquipment")
-        }
-
-        // Validate assigned driver exists and has DRIVER role
-        if (!userService.validateUserRole(createJobRequest.assignedDriverUsername, Role.DRIVER)) {
-            throw IllegalArgumentException("Assigned driver '${createJobRequest.assignedDriverUsername}' does not exist or is not a DRIVER")
-        }
-
-        // Validate assigned crew exists and has CREW role
-        if (!userService.validateUserRole(createJobRequest.assignedCrewUsername, Role.CREW)) {
-            throw IllegalArgumentException("Assigned crew '${createJobRequest.assignedCrewUsername}' does not exist or is not a CREW member")
-        }
-
         // Create job entity
         val job = Job(
             title = createJobRequest.title,
@@ -107,22 +91,18 @@ class JobService(
      * @param jobId The ID of the job to retrieve
      * @param requestingUsername The username of the user requesting the job
      * @param requestingUserRole The role of the user requesting the job
-     * @return JobResponse if authorized, null if job not found
-     * @throws IllegalAccessException if user is not authorized to access the job
+     * @return JobResponse if authorized
+     * @throws JobNotFoundException if job not found
+     * @throws UnauthorizedAccessException if user is not authorized to access the job
      */
     @Transactional(readOnly = true)
-    fun getJobById(jobId: Long, requestingUsername: String, requestingUserRole: Role): JobResponse? {
-        val job = jobRepository.findById(jobId).orElse(null) ?: return null
-
-        // Chiefs can access any job
-        if (requestingUserRole == Role.CHIEF) {
-            return mapToJobResponse(job)
+    fun getJobById(jobId: Long, requestingUsername: String, requestingUserRole: Role): JobResponse {
+        val job = jobRepository.findById(jobId).orElseThrow {
+            JobNotFoundException("Job with ID $jobId not found")
         }
 
-        // Drivers and Crew can only access jobs assigned to them
-        if (!job.isAssignedTo(requestingUsername)) {
-            throw IllegalAccessException("User '$requestingUsername' is not authorized to access job $jobId")
-        }
+        // Validate authorization
+        authorizationService.validateJobAccess(job, requestingUsername, requestingUserRole)
 
         return mapToJobResponse(job)
     }
@@ -136,8 +116,8 @@ class JobService(
      * @param requestingUsername The username of the user updating the job
      * @param requestingUserRole The role of the user updating the job
      * @return Updated JobResponse
-     * @throws IllegalArgumentException if job not found
-     * @throws IllegalAccessException if user is not authorized to update the job
+     * @throws JobNotFoundException if job not found
+     * @throws UnauthorizedAccessException if user is not authorized to update the job
      */
     fun updateJobStatus(
         jobId: Long, 
@@ -146,16 +126,11 @@ class JobService(
         requestingUserRole: Role
     ): JobResponse {
         val job = jobRepository.findById(jobId).orElseThrow {
-            IllegalArgumentException("Job with ID $jobId not found")
+            JobNotFoundException("Job with ID $jobId not found")
         }
 
-        // Chiefs can update any job
-        if (requestingUserRole != Role.CHIEF) {
-            // Drivers and Crew can only update jobs assigned to them
-            if (!job.isAssignedTo(requestingUsername)) {
-                throw IllegalAccessException("User '$requestingUsername' is not authorized to update job $jobId")
-            }
-        }
+        // Validate authorization
+        authorizationService.validateJobUpdateAccess(job, requestingUsername, requestingUserRole)
 
         // Update job status
         job.updateStatus(updateRequest.status)

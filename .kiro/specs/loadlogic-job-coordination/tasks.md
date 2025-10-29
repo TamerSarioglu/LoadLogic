@@ -171,14 +171,23 @@
     - Implement GET /api/users/available endpoint with role filtering
     - _Requirements: 8.1, 8.2, 8.3, 8.4_
 
-- [ ] 8. Implement global error handling and validation
-  - [ ] 8.1 Create global exception handler
+- [x] 8. Implement global error handling and validation
+
+
+
+
+
+  - [x] 8.1 Create global exception handler
+
+
     - Implement GlobalExceptionHandler with custom exception handling
     - Create custom exceptions for business logic violations
     - Add consistent error response formatting
     - _Requirements: 1.2, 2.4, 3.5, 6.3, 7.4_
 
-  - [ ] 8.2 Add input validation and business rule enforcement
+
+  - [x] 8.2 Add input validation and business rule enforcement
+
     - Implement validation for material and equipment lists
     - Add user role and assignment validation
     - Create authorization checks for job access

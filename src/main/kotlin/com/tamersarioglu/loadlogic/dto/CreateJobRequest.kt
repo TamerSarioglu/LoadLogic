@@ -1,5 +1,9 @@
 package com.tamersarioglu.loadlogic.dto
 
+import com.tamersarioglu.loadlogic.validation.ValidCrewUsername
+import com.tamersarioglu.loadlogic.validation.ValidDriverUsername
+import com.tamersarioglu.loadlogic.validation.ValidEquipment
+import com.tamersarioglu.loadlogic.validation.ValidMaterial
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
@@ -13,6 +17,7 @@ data class CreateJobRequest(
     val title: String,
     
     @field:NotBlank(message = "Material type is required")
+    @field:ValidMaterial
     val materialType: String,
     
     @field:NotBlank(message = "Quantity is required")
@@ -32,11 +37,14 @@ data class CreateJobRequest(
     val contactPhone: String,
     
     @field:NotBlank(message = "Assigned driver username is required")
+    @field:ValidDriverUsername
     val assignedDriverUsername: String,
     
     @field:NotBlank(message = "Assigned crew username is required")
+    @field:ValidCrewUsername
     val assignedCrewUsername: String,
     
     @field:NotBlank(message = "Assigned equipment is required")
+    @field:ValidEquipment
     val assignedEquipment: String
 )

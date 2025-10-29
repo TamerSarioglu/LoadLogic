@@ -1,6 +1,7 @@
 package com.tamersarioglu.loadlogic.dto
 
 import com.tamersarioglu.loadlogic.entity.Role
+import com.tamersarioglu.loadlogic.validation.UniqueUsername
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
@@ -12,6 +13,7 @@ import jakarta.validation.constraints.Size
 data class RegisterRequest(
     @field:NotBlank(message = "Username is required")
     @field:Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+    @field:UniqueUsername
     val username: String,
     
     @field:NotBlank(message = "Full name is required")

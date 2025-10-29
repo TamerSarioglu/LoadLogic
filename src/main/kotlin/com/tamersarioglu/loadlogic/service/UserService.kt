@@ -5,6 +5,8 @@ import com.tamersarioglu.loadlogic.dto.LoginRequest
 import com.tamersarioglu.loadlogic.dto.RegisterRequest
 import com.tamersarioglu.loadlogic.entity.Role
 import com.tamersarioglu.loadlogic.entity.User
+import com.tamersarioglu.loadlogic.exception.DuplicateUsernameException
+import com.tamersarioglu.loadlogic.exception.UserNotFoundException
 import com.tamersarioglu.loadlogic.repository.UserRepository
 import com.tamersarioglu.loadlogic.security.CustomUserDetails
 import org.springframework.security.authentication.AuthenticationManager
@@ -32,14 +34,8 @@ class UserService(
      * 
      * @param registerRequest The registration request containing user details
      * @return AuthResponse with JWT token and user information
-     * @throws IllegalArgumentException if username already exists
      */
     fun registerUser(registerRequest: RegisterRequest): AuthResponse {
-        // Check if username already exists
-        if (userRepository.existsByUsername(registerRequest.username)) {
-            throw IllegalArgumentException("Username '${registerRequest.username}' already exists")
-        }
-
         // Create new user with encoded password
         val user = User(
             username = registerRequest.username,

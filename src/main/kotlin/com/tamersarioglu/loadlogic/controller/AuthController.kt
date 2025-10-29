@@ -28,14 +28,8 @@ class AuthController(
      */
     @PostMapping("/register")
     fun registerUser(@Valid @RequestBody registerRequest: RegisterRequest): ResponseEntity<AuthResponse> {
-        return try {
-            val authResponse = userService.registerUser(registerRequest)
-            ResponseEntity.status(HttpStatus.CREATED).body(authResponse)
-        } catch (e: IllegalArgumentException) {
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
-        } catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
-        }
+        val authResponse = userService.registerUser(registerRequest)
+        return ResponseEntity.status(HttpStatus.CREATED).body(authResponse)
     }
 
     /**
@@ -46,13 +40,7 @@ class AuthController(
      */
     @PostMapping("/login")
     fun loginUser(@Valid @RequestBody loginRequest: LoginRequest): ResponseEntity<AuthResponse> {
-        return try {
-            val authResponse = userService.authenticateUser(loginRequest)
-            ResponseEntity.ok(authResponse)
-        } catch (e: org.springframework.security.core.AuthenticationException) {
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
-        } catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
-        }
+        val authResponse = userService.authenticateUser(loginRequest)
+        return ResponseEntity.ok(authResponse)
     }
 }
