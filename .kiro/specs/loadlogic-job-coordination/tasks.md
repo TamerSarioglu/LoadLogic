@@ -139,14 +139,23 @@
     - Create available users lookup by role
     - _Requirements: 8.1, 8.2, 8.3, 8.4_
 
-- [ ] 7. Implement REST controllers
-  - [ ] 7.1 Create AuthController for user registration and login
+- [x] 7. Implement REST controllers
+
+
+
+
+
+  - [x] 7.1 Create AuthController for user registration and login
+
+
     - Implement POST /api/auth/register endpoint with validation
     - Implement POST /api/auth/login endpoint with authentication
     - Add proper error handling and response formatting
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 2.4, 2.5_
 
-  - [ ] 7.2 Create JobController for job management
+  - [x] 7.2 Create JobController for job management
+
+
     - Implement POST /api/jobs endpoint for job creation (CHIEF only)
     - Implement GET /api/jobs endpoint for all jobs (CHIEF only)
     - Implement GET /api/jobs/mine endpoint for assigned jobs (DRIVER/CREW)
@@ -154,7 +163,9 @@
     - Implement PATCH /api/jobs/{id}/status endpoint for status updates
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 4.1, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 5.4, 6.1, 6.2, 6.3, 7.1, 7.2, 7.3, 7.4_
 
-  - [ ] 7.3 Create ReferenceController for reference data
+  - [x] 7.3 Create ReferenceController for reference data
+
+
     - Implement GET /api/reference/materials endpoint
     - Implement GET /api/reference/equipment endpoint  
     - Implement GET /api/users/available endpoint with role filtering

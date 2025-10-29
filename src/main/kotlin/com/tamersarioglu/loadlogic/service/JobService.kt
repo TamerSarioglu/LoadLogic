@@ -20,8 +20,8 @@ import org.springframework.transaction.annotation.Transactional
 class JobService(
     private val jobRepository: JobRepository,
     private val userService: UserService,
-    @Value("\${app.materials}") private val validMaterials: List<String>,
-    @Value("\${app.equipment}") private val validEquipment: List<String>
+    @param:Value("\${app.materials}") private val validMaterials: List<String>,
+    @param:Value("\${app.equipment}") private val validEquipment: List<String>
 ) {
 
     /**

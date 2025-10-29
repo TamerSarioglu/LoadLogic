@@ -9,21 +9,20 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 /**
- * Service class for reference data operations.
- * Provides predefined lists of materials, equipment, and available users.
+ * Service class for reference data operations. Provides predefined lists of materials, equipment,
+ * and available users.
  */
 @Service
 @Transactional(readOnly = true)
 class ReferenceDataService(
-    private val userService: UserService,
-    @Value("\${app.materials}") private val materials: List<String>,
-    @Value("\${app.equipment}") private val equipment: List<String>
+        private val userService: UserService,
+        @param:Value("\${app.materials}") private val materials: List<String>,
+        @param:Value("\${app.equipment}") private val equipment: List<String>
 ) {
 
     /**
-     * Returns the list of available materials.
-     * Used for job creation and validation.
-     * 
+     * Returns the list of available materials. Used for job creation and validation.
+     *
      * @return List of MaterialResponse containing all available materials
      */
     fun getMaterials(): List<MaterialResponse> {
@@ -31,9 +30,8 @@ class ReferenceDataService(
     }
 
     /**
-     * Returns the list of available equipment.
-     * Used for job creation and validation.
-     * 
+     * Returns the list of available equipment. Used for job creation and validation.
+     *
      * @return List of EquipmentResponse containing all available equipment
      */
     fun getEquipment(): List<EquipmentResponse> {
@@ -41,31 +39,31 @@ class ReferenceDataService(
     }
 
     /**
-     * Returns available users filtered by role.
-     * Used for job assignment dropdowns.
-     * 
+     * Returns available users filtered by role. Used for job assignment dropdowns.
+     *
      * @param role The role to filter users by (optional)
      * @return List of AvailableUserResponse containing users with the specified role
      */
     fun getAvailableUsers(role: Role? = null): List<AvailableUserResponse> {
-        val users = if (role != null) {
-            userService.getActiveUsersByRole(role)
-        } else {
-            userService.getAllActiveUsers()
-        }
+        val users =
+                if (role != null) {
+                    userService.getActiveUsersByRole(role)
+                } else {
+                    userService.getAllActiveUsers()
+                }
 
         return users.map { user ->
             AvailableUserResponse(
-                username = user.username,
-                fullName = user.fullName,
-                role = user.role
+                    username = user.username,
+                    fullName = user.fullName,
+                    role = user.role
             )
         }
     }
 
     /**
      * Returns available drivers for job assignment.
-     * 
+     *
      * @return List of AvailableUserResponse containing all active drivers
      */
     fun getAvailableDrivers(): List<AvailableUserResponse> {
@@ -74,7 +72,7 @@ class ReferenceDataService(
 
     /**
      * Returns available crew members for job assignment.
-     * 
+     *
      * @return List of AvailableUserResponse containing all active crew members
      */
     fun getAvailableCrew(): List<AvailableUserResponse> {
@@ -83,7 +81,7 @@ class ReferenceDataService(
 
     /**
      * Returns available chiefs in the system.
-     * 
+     *
      * @return List of AvailableUserResponse containing all active chiefs
      */
     fun getAvailableChiefs(): List<AvailableUserResponse> {
@@ -92,7 +90,7 @@ class ReferenceDataService(
 
     /**
      * Validates if a material name is in the predefined list.
-     * 
+     *
      * @param materialName The material name to validate
      * @return true if material is valid, false otherwise
      */
@@ -102,7 +100,7 @@ class ReferenceDataService(
 
     /**
      * Validates if an equipment name is in the predefined list.
-     * 
+     *
      * @param equipmentName The equipment name to validate
      * @return true if equipment is valid, false otherwise
      */
@@ -112,7 +110,7 @@ class ReferenceDataService(
 
     /**
      * Returns the complete list of valid material names.
-     * 
+     *
      * @return List of valid material names
      */
     fun getValidMaterialNames(): List<String> {
@@ -121,7 +119,7 @@ class ReferenceDataService(
 
     /**
      * Returns the complete list of valid equipment names.
-     * 
+     *
      * @return List of valid equipment names
      */
     fun getValidEquipmentNames(): List<String> {
