@@ -9,18 +9,18 @@ import org.springframework.security.core.userdetails.UserDetails
  * Custom implementation of Spring Security's UserDetails interface.
  * Wraps the User entity to provide authentication and authorization information.
  */
-class CustomUserDetails(private val user: User) : UserDetails {
+class CustomUserDetails(private val _user: User) : UserDetails {
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
-        return listOf(SimpleGrantedAuthority("ROLE_${user.role.name}"))
+        return listOf(SimpleGrantedAuthority("ROLE_${_user.role.name}"))
     }
 
     override fun getPassword(): String {
-        return user.password
+        return _user.password
     }
 
     override fun getUsername(): String {
-        return user.username
+        return _user.username
     }
 
     override fun isAccountNonExpired(): Boolean {
@@ -36,27 +36,27 @@ class CustomUserDetails(private val user: User) : UserDetails {
     }
 
     override fun isEnabled(): Boolean {
-        return user.isActive
+        return _user.isActive
     }
 
     /**
      * Get the underlying User entity.
      */
     fun getUser(): User {
-        return user
+        return _user
     }
 
     /**
      * Get the user's role as a string.
      */
     fun getRole(): String {
-        return user.role.name
+        return _user.role.name
     }
 
     /**
      * Get the user's full name.
      */
     fun getFullName(): String {
-        return user.fullName
+        return _user.fullName
     }
 }

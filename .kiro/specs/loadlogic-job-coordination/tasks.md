@@ -110,20 +110,31 @@
     - Add methods for finding jobs by driver/crew assignment
     - _Requirements: 4.2, 5.2, 5.3_
 
-- [ ] 6. Implement service layer business logic
-  - [ ] 6.1 Create UserService for authentication and user management
+- [x] 6. Implement service layer business logic
+
+
+
+
+
+  - [x] 6.1 Create UserService for authentication and user management
+
+
     - Implement user registration with validation and password encoding
     - Create authentication logic with JWT token generation
     - Add user lookup methods for job assignment validation
     - _Requirements: 1.1, 1.2, 1.4, 2.1, 2.2, 3.5, 9.1_
 
-  - [ ] 6.2 Create JobService for job management
+  - [x] 6.2 Create JobService for job management
+
+
     - Implement job creation with assignment validation
     - Create job retrieval methods with role-based filtering
     - Add job status update logic with authorization checks
     - _Requirements: 3.1, 3.2, 3.3, 3.5, 4.1, 4.2, 5.1, 5.2, 6.1, 6.2, 6.3, 7.1, 7.4_
 
-  - [ ] 6.3 Create ReferenceDataService for predefined lists
+  - [x] 6.3 Create ReferenceDataService for predefined lists
+
+
     - Implement methods to return materials and equipment lists
     - Create available users lookup by role
     - _Requirements: 8.1, 8.2, 8.3, 8.4_
